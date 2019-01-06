@@ -1,0 +1,8 @@
+{
+	"settings" : {		
+		"skip_update_check" : false,
+		"force_update_check" : false,
+		
+		"skip_assets_extracting" : false
+	}
+}
