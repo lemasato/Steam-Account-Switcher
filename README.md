@@ -19,17 +19,17 @@ If needed, you can contact me on **[Reddit](https://www.reddit.com/user/lemasato
 - Download and extract [Steam-Account-Switcher-AHK-Onlyzip](https://github.com/lemasato/Steam-Account-Switcher/releases) from the releases page.  
 - Run Steam Account Switcher.ahk  
 
-You can add or remove accounts from the list by using right click.
+You can add or remove accounts from the list by using right click.  
 
 ***
 
 <img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface.png>
 
 ## Key Features  
-- Log into another Steam account without having to type your password.  
-**We do not need your password.**
-The tool makes clever use of the cookies system Steam is using.
-Simply make sure to tick the "Remember my password" checkbox when logging on Steam.
+- **Easily log into your Steam accounts, without having to type your password.**  
+**We do not need your password.**  
+The tool makes clever use of the cookies system Steam is using.  
+Simply make sure to tick the "Remember my password" checkbox when logging on Steam.  
 - **Automatic updates.**  
 Receive a notification when an update is available.  
 The entire updating process is automated.  
