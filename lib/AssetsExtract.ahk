@@ -122,11 +122,8 @@
 
 	installFile_run_cmd := % """" path_AHk """" " /r " """" installFile """"
 	.		" /MAIN_FOLDER=" 	"""" PROGRAM.MAIN_FOLDER """"
-	.		" /SFX_FOLDER=" 	"""" PROGRAM.SFX_FOLDER """"
 	.		" /LOGS_FOLDER=" 	"""" PROGRAM.LOGS_FOLDER """"
-	.		" /SKINS_FOLDER=" 	"""" PROGRAM.SKINS_FOLDER """"
 	.		" /FONTS_FOLDER=" 	"""" PROGRAM.FONTS_FOLDER """"
-	.		" /DATA_FOLDER=" 	"""" PROGRAM.DATA_FOLDER """"
 	.		" /IMAGES_FOLDER=" 	"""" PROGRAM.IMAGES_FOLDER """"
 	.		" /ICONS_FOLDER=" 	"""" PROGRAM.ICONS_FOLDER """"
 	.		" /LOGS_FILE="		"""" PROGRAM.LOGS_FILE """"
