@@ -319,13 +319,24 @@
         if (!account)
             return
 
+        Gui, AccountSwitcher:Hide
+
         Steam.SetAutoLoginUser(account)
-        Steam.Exit()
+        Process, Exist, Steam.exe
+        if (ErrorLevel)
+            Steam.Exit()
 
         Process, WaitClose, Steam.exe, 5
-        if (ErrorLevel)
-            MsgBox(4096, PROGRAM.NAME, "Failed to close steam.exe process.`nPlease close Steam manually.")
-        Process, WaitClose, Steam.exe
+        Process, Exist, Steam.exe
+        if (ErrorLevel) {
+            Process, Close, %ErrorLevel%
+            Sleep 100
+            Process, WaitClose, %ErrorLevel%, 5
+            if (ErrorLevel) {
+                MsgBox(4096, PROGRAM.NAME, "Failed to close steam.exe process.`nPlease close Steam manually.")
+                Process, WaitClose, %ErrorLevel%
+            }
+        }
 
         Steam.Start()
         ExitApp
