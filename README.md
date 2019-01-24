@@ -21,6 +21,8 @@ If needed, you can contact me on **[Reddit](https://www.reddit.com/user/lemasato
 
 You can add or remove accounts from the list by using right click.
 
+***
+
 <img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface.png>
 
 ## Key Features  
