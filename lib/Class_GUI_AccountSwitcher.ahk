@@ -184,7 +184,7 @@
     LVAccounts_OnClick(CtrlHwnd, GuiEvent, EventInfo) {
         global GuiAccountSwitcher
 
-        if IsIn(GuiEvent,"Normal,D,I,K") {
+        if IsIn(GuiEvent,"DoubleClick,Normal,D,I,K") {
             rowID := LV_GetNext(0, "F")
                 if (rowID = 0) {
                     rowID := LV_GetCount()
@@ -194,6 +194,9 @@
                 GuiAccountSwitcher.SelectedAccountRow := rowID
                 GuiAccountSwitcher.SelectedAccount := accName
         }
+
+        if (GuiEvent = "DoubleClick")
+            GUI_AccountSwitcher.Login()
     }
 
     LVAccounts_SetContent(content) {
