@@ -341,3 +341,17 @@ WM_MOUSEMOVE() {
 	_prevInfos := currentButtonInfos
 	_prevMouseX := _mouseX, _prevMouseY := _mouseY
 }
+
+AHK_NOTIFYICON(wParam, lParam) 
+{ 
+    if (lParam = 0x202) ; WM_LBUTTONUP
+    { 
+        SetTimer, AHK_NOTIFYICON_ShowTrayMenu, -1 
+        return 0 
+    }
+	return
+
+	AHK_NOTIFYICON_ShowTrayMenu:
+		Menu, Tray, Show
+	return
+} 

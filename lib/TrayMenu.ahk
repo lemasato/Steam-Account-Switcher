@@ -10,18 +10,21 @@
 			Menu,Tray,Add,Recreate Settings GUI, Tray_CreateSettings
 	}
 	; Menu,Tray,Add,Settings, Tray_OpenSettings
-	Menu,Tray,Add,GitHub, Tray_GitHub
+	Menu,Tray,Add,Open,Tray_Open
 	Menu,Tray,Add
 	Menu,Tray,Add,Reload, Tray_Reload
 	Menu,Tray,Add,Close, Tray_Exit
 	Menu,Tray,Icon
 
 	; Icons
-	; Menu, Tray, Icon,Settings,% PROGRAM.ICONS_FOLDER "\gear.ico"
+	Menu, Tray, Icon,Open,% PROGRAM.ICONS_FOLDER "\gear.ico"
 	Menu, Tray, Icon,Reload,% PROGRAM.ICONS_FOLDER "\refresh.ico"
 	Menu, Tray, Icon,Close,% PROGRAM.ICONS_FOLDER "\x.ico"
 }
 
+Tray_Open() {
+	GUI_AccountSwitcher.Show()
+}
 Tray_OpenBetaTasks() {
 	GUI_BetaTasks.Show()
 }

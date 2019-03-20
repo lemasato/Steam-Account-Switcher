@@ -50,9 +50,14 @@
 			, [3, "0xa20b0b", "0x7c0909", "Black", 0]  ; press
 			, [3, "0xff5c5c", "0xe60000", "White", 0 ] ] ; default
 
+        Style_MinimizeBtn := [ [0, "0x0fa1d7", "", "White", 0, , ""] ; normal
+                    , [0, "0x0b7aa2", "", "White", 0] ; hover
+                    , [3, "0x0b7aa2", "0x096a7b", "Black", 0]  ; press
+                    , [3, "0x5cb3ff", "0x00bbe6", "White", 0 ] ] ; default
 
-        Header_X := leftMost, Header_Y := upMost, Header_W := guiWidth-(borderSize*2)-30, Header_H := 18 ; 30=closebtn
-        CloseBtn_X := Header_X+Header_W, CloseBtn_Y := Header_Y, CloseBtn_W := 30, CloseBtn_H := Header_H
+        Header_X := leftMost, Header_Y := upMost, Header_W := guiWidth-(borderSize*2)-60, Header_H := 18 ; 30=closebtn
+        CloseBtn_X := Header_X+Header_W+30, CloseBtn_Y := Header_Y, CloseBtn_W := 30, CloseBtn_H := Header_H
+        MinimizeBTN_X := CloseBtn_X-CloseBtn_W, MinimizeBTN_Y := CloseBtn_Y, MinimizeBTN_W := CloseBtn_W, MinimizeBtn_H := CloseBtn_H
         ; Tab_Num := 2, Tab_X := leftMost, Tab_Y := Header_Y+Header_H, Tab_W := 35, Tab_H := (guiHeight-Header_H)/Tab_Num-borderSize
         Tab_X := leftMost, Tab_Y := Header_Y+Header_H, Tab_W := guiWidth-80-2, Tab_H := 30
         Tab2_X := Tab_X+Tab_W, Tab2_Y := Tab_Y, Tab2_W := 80, Tab2_H := Tab_H
@@ -85,8 +90,12 @@
 		Gui.Add("AccountSwitcher", "Progress", "xp yp wp hp Background1B1E28") ; Title bar background
 		Gui.Add("AccountSwitcher", "Text", "xp yp wp hp Center 0x200 cbdbdbd BackgroundTrans ", "Steam Account Switcher v" PROGRAM.VERSION) ; Title bar text
 		imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" CloseBtn_X " y" CloseBtn_Y " w" CloseBtn_W " h" CloseBtn_H " 0x200 Center hwndhBTN_CloseGUI", "X", Style_RedBtn, PROGRAM.FONTS["Segoe UI"], 10)
+        imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" MinimizeBtn_X " y" MinimizeBtn_Y " w" MinimizeBtn_W " h" MinimizeBtn_H " 0x200 Center hwndhBTN_MinimizeGUI", "-", Style_MinimizeBtn, PROGRAM.FONTS["Segoe UI"], 10)
+
 		__f := GUI_AccountSwitcher.DragGui.bind(GUI_AccountSwitcher, GuiHwnd:=GuiAccountSwitcher.Handle)
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls.hTEXT_HeaderGhost,% __f
+        __f := GUI_AccountSwitcher.Minimize.bind(GUI_AccountSwitcher)
+		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls.hBTN_MinimizeGUI,% __f
 		__f := GUI_AccountSwitcher.Close.bind(GUI_AccountSwitcher)
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls.hBTN_CloseGUI,% __f
 
@@ -134,7 +143,8 @@
         Gui.Add("AccountSwitcher", "Text", "x" leftMost+5 " y" Tab_Y+Tab_H+8 " cWhite", "Detected Steam folder:")
         Gui.Add("AccountSwitcher", "Edit", "x+5 yp-3 w240 R1 ReadOnly cWhite", Steam.GetInstallationFolder())
 
-        Gui.Add("AccountSwitcher", "Checkbox", "x" leftMost+5 " y+10 cWhite hwndhCB_StartSteamOffline", "Start Steam in offline mode")
+        Gui.Add("AccountSwitcher", "Checkbox", "x" leftMost+5 " y+10 cWhite hwndhCB_StartSteamOffline", "Start Steam in offline mode?")
+        Gui.Add("AccountSwitcher", "Checkbox", "x" leftMost+5 " y+5 cWhite hwndhCB_MinimizeAfterLogin", "Minimize tool instead of close after login?")
 
         Gui.Add("AccountSwitcher", "Text", "x" leftMost+170 " y" guiHeight-25 " cWhite", "Quick links:")
         Gui.Add("AccountSwitcher", "Picture", "x+7 y" guiHeight-25-4 " w25 h25 hwndhIMG_GitHub", PROGRAM.IMAGES_FOLDER "\GitHub.png")
@@ -145,6 +155,8 @@
 
         __f := GUI_AccountSwitcher.OnCheckboxToggle.bind(GUI_AccountSwitcher, "hCB_StartSteamOffline")
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hCB_StartSteamOffline"],% __f
+        __f := GUI_AccountSwitcher.OnCheckboxToggle.bind(GUI_AccountSwitcher, "hCB_MinimizeAfterLogin")
+		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hCB_MinimizeAfterLogin"],% __f
 
         __f := GUI_AccountSwitcher.OnPictureLinkClick.bind(GUI_AccountSwitcher, "Paypal")
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hIMG_Paypal"],% __f
@@ -268,6 +280,12 @@
     /* * * * * *
     * FUNCTIONS
     */
+
+    Minimize() {
+        global PROGRAM
+        GUI_AccountSwitcher.Hide()
+        TrayNotifications.Show(PROGRAM.NAME " has been minimized.", "Right click on the tray icon to show the menu again.")
+    }
 
     OnCheckboxToggle(CtrlName) {
         global PROGRAM
@@ -394,7 +412,10 @@
         }
 
         Steam.Start()
-        ExitApp
+        if (!RUNTIME_PARAMETERS.Account && PROGRAM.SETTINGS.SETTINGS_MAIN.MinimizeAfterLogin = "True")
+            GUI_AccountSwitcher.Minimize()
+        else
+            ExitApp
     }
 
     ContextMenu(CtrlHwnd, CtrlName) {
@@ -465,6 +486,10 @@
     DragGui(GuiHwnd) {
         PostMessage, 0xA1, 2,,,% "ahk_id " GuiHwnd
         GUI_AccountSwitcher.RemoveButtonFocus()
+    }
+
+    Hide() {
+        Gui, AccountSwitcher:Hide
     }
 
     Close() {

@@ -32,6 +32,7 @@ Get_LocalSettings_DefaultValues() {
 	settings.SETTINGS_MAIN.SavedAccounts												:= ""
 	settings.SETTINGS_MAIN.SteamFolder													:= ""
 	settings.SETTINGS_MAIN.StartSteamOffline											:= "False"
+	settings.SETTINGS_MAIN.MinimizeAfterLogin											:= "False"
 
 	hw := A_DetectHiddenWindows
 	DetectHiddenWindows, On
@@ -62,9 +63,9 @@ LocalSettings_IsValueValid(iniSect, iniKey, iniValue) {
 	}
 
 	else if (iniSect = "SETTINGS_MAIN") {
-		isValueValid := iniKey="SavedAccounts"?True
-		: iniKey="SteamFolder"?True
-		: iniKey="StartSteamOffline"? ( IsIn(iniValue, "True,False") ? True : False ) : False
+		isValueValid := IsIn(iniKey,"SavedAccounts,SteamFolder") ? True
+		: IsIn(iniKey,"StartSteamOffline,MinimizeAfterLogin") ? ( IsIn(iniValue, "True,False") ? True : False )
+		: False
 	}
 
 	else if (iniSect = "UPDATING") {
