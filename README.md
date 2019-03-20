@@ -39,3 +39,11 @@ Simply make sure to tick the "Remember my password" checkbox when logging on Ste
 Receive a notification when an update is available.  
 The entire updating process is automated.  
 
+***
+
+## Command-line parameters
+|||
+|---|---|
+|/Account=accountname|Logs into the account without using the interface.|
+|/Offline|Requires to be used with the /Account=accountname parameter. Force Steam to starts in offline mode.|
+|/SkipAdmin|Prevents the tool from automatically asking to be elevated as admin.|
