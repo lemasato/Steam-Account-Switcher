@@ -47,9 +47,9 @@ The entire updating process is automated.
 Logs into the account, skipping the interface.  
 
 - **/Offline**  
-/!\ Requires to be used with `/Account=` /!\  
+⚠ Requires to be used with `/Account=` ⚠  
 Forces Steam to start in Offline mode.  
-When ommited, forces Steam to start in Online mode.  
+When omitted, forces Steam to start in Online mode.  
 
 - **/SkipAdmin**  
 Skips the admin elevation prompt.  
