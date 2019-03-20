@@ -132,7 +132,7 @@
 		Gui, TrayNotification%index%:Add, Text,% "xm+35" " ym+9" " w" titleWidthMax " BackgroundTrans cFFFFFF",% title
 		Gui, TrayNotification%index%:Font, S%guiFontSize% Norm,% guiFontName
 		Gui, TrayNotification%index%:Add, Text,% "xm+10" " ym+35" " w" textWidthMax " BackgroundTrans ca5a5a5",% msg
-		Gui, TrayNotification%index%:Add, Picture, x5 y5 w24 h24 hwndhIcon,% SKIN.Assets.Misc.Icon
+		Gui, TrayNotification%index%:Add, Picture, x5 y5 w24 h24 hwndhIcon,% PROGRAM.MAIN_FOLDER "\icon.ico"
 
 		showX := MonitorWorkAreaRight - ( (guiWidth+10)*resDPI )
 		showY := MonitorWorkAreaBottom - ( (guiHeight+10)*resDPI )
