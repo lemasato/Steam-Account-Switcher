@@ -12,6 +12,9 @@
 	- Can now open the interface from the tray menu.
 	- Added a button to minimize the interface.
 	- Double click on the account name to log in.
+	
+	Fixes:
+	- Missing icon for notifications.
 
 = = = = = = = = = = = = =
 0.1 (06 Jan 2019)
