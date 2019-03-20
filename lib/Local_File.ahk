@@ -31,6 +31,7 @@ Get_LocalSettings_DefaultValues() {
 	settings.SETTINGS_MAIN 																:= {}
 	settings.SETTINGS_MAIN.SavedAccounts												:= ""
 	settings.SETTINGS_MAIN.SteamFolder													:= ""
+	settings.SETTINGS_MAIN.StartSteamOffline											:= "False"
 
 	hw := A_DetectHiddenWindows
 	DetectHiddenWindows, On
@@ -61,7 +62,9 @@ LocalSettings_IsValueValid(iniSect, iniKey, iniValue) {
 	}
 
 	else if (iniSect = "SETTINGS_MAIN") {
-		isValueValid := True
+		isValueValid := iniKey="SavedAccounts"?True
+		: iniKey="SteamFolder"?True
+		: iniKey="StartSteamOffline"? ( IsIn(iniValue, "True,False") ? True : False ) : False
 	}
 
 	else if (iniSect = "UPDATING") {

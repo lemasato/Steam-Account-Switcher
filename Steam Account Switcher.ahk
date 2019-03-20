@@ -187,7 +187,12 @@ Start_Script() {
 
 	TrayMenu()
 
-    GUI_AccountSwitcher.Show()
+	if (RUNTIME_PARAMETERS.Account) {
+		GUI_AccountSwitcher.Create()
+		GUI_AccountSwitcher.Login(RUNTIME_PARAMETERS.Account)
+	}
+	else
+    	GUI_AccountSwitcher.Show()
 
 	ShellMessage_Enable()
 }

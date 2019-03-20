@@ -5,7 +5,7 @@
         static guiCreated
 
         ; Free ImageButton memory
-		for key, value in GuiAccountSwitcher_Controls ; TO_DO
+		for key, value in GuiAccountSwitcher_Controls
 			if IsIn(key, "hBTN_CloseGUI,hBTN_TabAccounts,hBTN_TabOptions,hBTN_Login")
 				ImageButton.DestroyBtnImgList(value)
 		
@@ -123,7 +123,7 @@
         
 
         imgBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" LoginBtn_X " y" LoginBtn_Y " w" LoginBtn_W " h" LoginBtn_H " hwndhBTN_Login", "Login", Style_LoginButton, PROGRAM.FONTS["Segoe UI"], 10)
-        __f := GUI_AccountSwitcher.Login.bind(GUI_AccountSwitcher)
+        __f := GUI_AccountSwitcher.Login.bind(GUI_AccountSwitcher, accName:="")
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hBTN_Login"],% __f
 
         /* * * * * * * * * * *
@@ -134,10 +134,18 @@
         Gui.Add("AccountSwitcher", "Text", "x" leftMost+5 " y" Tab_Y+Tab_H+8 " cWhite", "Detected Steam folder:")
         Gui.Add("AccountSwitcher", "Edit", "x+5 yp-3 w240 R1 ReadOnly cWhite", Steam.GetInstallationFolder())
 
+        Gui.Add("AccountSwitcher", "Checkbox", "x" leftMost+5 " y+10 cWhite hwndhCB_StartSteamOffline", "Start Steam in offline mode")
+
         Gui.Add("AccountSwitcher", "Text", "x" leftMost+170 " y" guiHeight-25 " cWhite", "Quick links:")
         Gui.Add("AccountSwitcher", "Picture", "x+7 y" guiHeight-25-4 " w25 h25 hwndhIMG_GitHub", PROGRAM.IMAGES_FOLDER "\GitHub.png")
         Gui.Add("AccountSwitcher", "Picture", "x+5 yp w25 h25 hwndhIMG_Discord", PROGRAM.IMAGES_FOLDER "\Discord.png")
         Gui.Add("AccountSwitcher", "Picture", "x+5 y" guiHeight-34 " w92 h32 hwndhIMG_Paypal", PROGRAM.IMAGES_FOLDER "\DonatePaypal.png")
+
+        GUI_AccountSwitcher.SetUserSettings()
+
+        __f := GUI_AccountSwitcher.OnCheckboxToggle.bind(GUI_AccountSwitcher, "hCB_StartSteamOffline")
+		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hCB_StartSteamOffline"],% __f
+
         __f := GUI_AccountSwitcher.OnPictureLinkClick.bind(GUI_AccountSwitcher, "Paypal")
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hIMG_Paypal"],% __f
 		__f := GUI_AccountSwitcher.OnPictureLinkClick.bind(GUI_AccountSwitcher, "Discord")
@@ -261,6 +269,34 @@
     * FUNCTIONS
     */
 
+    OnCheckboxToggle(CtrlName) {
+        global PROGRAM
+
+        iniKey := StrSplit(CtrlName, "hCB_").2
+
+        if !(iniKey) {
+			MsgBox(4096, "","Invalid INI Key for control: " CtrlName)
+			Return
+		}
+
+		val := GUI_AccountSwitcher.Submit(CtrlName)
+		trueFalse := val=0?"False":val=1?"True":val
+
+		INI.Set(PROGRAM.INI_FILE, "SETTINGS_MAIN", iniKey, trueFalse)
+		Declare_LocalSettings()
+    }
+
+    SetUserSettings() {
+        global PROGRAM, GuiAccountSwitcher_Controls
+
+        settings := {}
+        for key, value in PROGRAM.SETTINGS.SETTINGS_MAIN {
+            settings[key] := value="True"?True : value="False"?False : value
+        }
+
+        GuiControl, AccountSwitcher:,% GuiAccountSwitcher_Controls["hCB_StartSteamOffline"],% settings.StartSteamOffline
+    }
+
     RemoveButtonFocus() {
         global GuiAccountSwitcher
 		ControlFocus,,% "ahk_id " GuiAccountSwitcher.Handle ; Remove focus
@@ -315,19 +351,35 @@
         else return Steam.GetAccountsList()
     }
 
-    Login() {
-        global PROGRAM, GuiAccountSwitcher
+    Login(_account="") {
+        global PROGRAM, RUNTIME_PARAMETERS, GuiAccountSwitcher
 
-        account := GuiAccountSwitcher.SelectedAccount
+        account := _account ? _account : GuiAccountSwitcher.SelectedAccount
         if (!account)
             return
 
         Gui, AccountSwitcher:Hide
 
-        Steam.SetAutoLoginUser(account)
         Process, Exist, Steam.exe
         if (ErrorLevel)
             Steam.Exit()
+
+        useOffline := RUNTIME_PARAMETERS.Account && RUNTIME_PARAMETERS.StartSteamOffline ? True
+        : RUNTIME_PARAMETERS.Account && !RUNTIME_PARAMETERS.StartSteamOffline ? False
+        : PROGRAM.SETTINGS.SETTINGS_MAIN.StartSteamOffline = "True" ? True
+        : False
+
+        Steam.SetAutoLoginUser(account)
+        if (useOffline) {
+            /* When switching between account while keeping the offline mode, the warning is only skipped is that account is the most recent logged account
+                To bypass that, we can change the TimeStamp key to trick it into thinking the account we are logging in is the most recent one
+            */
+            epochNow := A_NowUTC
+            EnvSub, epochNow,1970, seconds
+            Steam.SetAccountSettings(account, {WantsOfflineMode:1,SkipOfflineModeWarning:1,Timestamp:epochNow})
+        }
+        else
+            Steam.SetAccountSettings(account, {WantsOfflineMode:0,SkipOfflineModeWarning:0})
 
         Process, WaitClose, Steam.exe, 5
         Process, Exist, Steam.exe
