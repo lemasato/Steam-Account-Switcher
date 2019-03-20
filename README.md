@@ -4,9 +4,12 @@
 Steam Account Switcher is and will always be free to use.  
 Your name will appear on this page if you choose to donate!
 
-If needed, you can contact me on **[Reddit](https://www.reddit.com/user/lemasato)** - **[Discord](https://discord.gg/UMxqtfC)**
+Join the official discord channel!  
+<a href="https://discord.gg/UMxqtfC"><img src="https://raw.githubusercontent.com/lemasato/POE-Trades-Companion/master/resources/imgs/Discord_big.png" height=50></a>
 
-<a href="https://discord.gg/UMxqtfC"><img src="https://discordapp.com/assets/e4923594e694a21542a489471ecffa50.svg" height=50></a>
+If needed, you can contact me on:  
+<a href="https://discord.gg/UMxqtfC"><img src="https://raw.githubusercontent.com/lemasato/POE-Trades-Companion/master/resources/imgs/Discord_big.png" height=30></a>&nbsp;&nbsp;&nbsp;
+<a href="https://www.reddit.com/user/lemasato/submitted/"><img src="https://raw.githubusercontent.com/lemasato/POE-Trades-Companion/master/resources/imgs/Reddit_big.png" height=30></a>  
 
 ***
 
@@ -16,21 +19,31 @@ If needed, you can contact me on **[Reddit](https://www.reddit.com/user/lemasato
 - Run the downloaded executable
 ### OR
 - Download and install [AutoHotKey](https://autohotkey.com/download/) from the official website.  
-- Download and extract [Steam-Account-Switcher-AHK-Onlyzip](https://github.com/lemasato/Steam-Account-Switcher/releases) from the releases page.  
+- Download and extract [Steam-Account-Switcher-AHK.zip](https://github.com/lemasato/Steam-Account-Switcher/releases) from the releases page.  
 - Run Steam Account Switcher.ahk  
 
 You can add or remove accounts from the list by using right click.  
 
 ***
 
-<img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface.png>
+|||
+|---|---|
+|<img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface.png>|<img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface-2.png>|
 
 ## Key Features  
 - **Easily log into your Steam accounts, without having to type your password.**  
 **We do not need your password.**  
-The tool makes clever use of the cookies system Steam is using.  
+The tool makes clever use of the cookies/tokens system Steam is using.  
 Simply make sure to tick the "Remember my password" checkbox when logging on Steam.  
 - **Automatic updates.**  
 Receive a notification when an update is available.  
 The entire updating process is automated.  
 
+***
+
+## Command-line parameters
+|||
+|---|---|
+|/Account=accountname|Logs into the account without using the interface.|
+|/Offline|Requires to be used with the /Account=accountname parameter. Force Steam to starts in offline mode.|
+|/SkipAdmin|Prevents the tool from automatically asking to be elevated as admin.|
