@@ -42,8 +42,14 @@ The entire updating process is automated.
 ***
 
 ## Command-line parameters
-|||
-|---|---|
-|/Account=accountname|Logs into the account without using the interface.|
-|/Offline|Requires to be used with the /Account=accountname parameter. Force Steam to starts in offline mode.|
-|/SkipAdmin|Prevents the tool from automatically asking to be elevated as admin.|
+
+- **/Account=accountname**  
+Logs into the account, skipping the interface.  
+
+- **/Offline**  
+/!\ Requires to be used with `/Account=` /!\  
+Forces Steam to start in Offline mode.  
+When ommited, forces Steam to start in Online mode.  
+
+- **/SkipAdmin**  
+Skips the admin elevation prompt.  
