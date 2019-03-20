@@ -1,3 +1,18 @@
 = = = = = = = = = = = = =
+0.2 (20 March 2019)
+	Features:
+	- Added an option to start steam offline.
+	- Added an option to minimize the tool instead of closing after login.
+	- Added new command-line parameters:
+	/Account=username - Directly log into that account without using the interface.
+	/Offline - Needs to be used with /Account. Launch steam in offline mode.
+	
+	Changes/Improvements:
+	- Can now open the tray menu by left clicking.
+	- Can now open the interface from the tray menu.
+	- Added a button to minimize the interface.
+	- Double click on the account name to log in.
+
+= = = = = = = = = = = = =
 0.1 (06 Jan 2019)
 	- Initial release.
