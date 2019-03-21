@@ -313,6 +313,7 @@
         }
 
         GuiControl, AccountSwitcher:,% GuiAccountSwitcher_Controls["hCB_StartSteamOffline"],% settings.StartSteamOffline
+        GuiControl, AccountSwitcher:,% GuiAccountSwitcher_Controls["hCB_MinimizeAfterLogin"],% settings.MinimizeAfterLogin
     }
 
     RemoveButtonFocus() {
