@@ -193,6 +193,10 @@ Start_Script() {
 		GUI_AccountSwitcher.Create()
 		GUI_AccountSwitcher.Login(RUNTIME_PARAMETERS.Account)
 	}
+	else if (RUNTIME_PARAMETERS.StartMinimized) {
+		GUI_AccountSwitcher.Create()
+		GUI_AccountSwitcher.Minimize()
+	}
 	else
     	GUI_AccountSwitcher.Show()
 

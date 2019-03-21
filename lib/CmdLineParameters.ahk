@@ -32,5 +32,8 @@ Handle_CmdLineParameters() {
 		else if (param="/NoReplace" || param="/NewInstance") {
 			RUNTIME_PARAMETERS["NewInstance"] := True
 		}
+		else if (param="/StartMinimized") {
+			RUNTIME_PARAMETERS["StartMinimized"] := True
+		}
 	}
 }

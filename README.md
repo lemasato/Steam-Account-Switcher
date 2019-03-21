@@ -45,11 +45,16 @@ The entire updating process is automated.
 
 - **/Account=accountname**  
 Logs into the account, skipping the interface.  
+⚠ Note that after loging into the account, the tool will always close, ignoring the `"minimize instead of close"` setting ⚠
 
 - **/Offline**  
 ⚠ Requires to be used with `/Account=` ⚠  
 Forces Steam to start in Offline mode.  
 When omitted, forces Steam to start in Online mode.  
+
+- **/StartMinimized**
+⚠ Does not work with `/Account=` or `/Offline` as they bypass the interface ⚠
+Starts the tool minimized in the tray. Useful if you want to add a shortcut to run on startup.|
 
 - **/SkipAdmin**  
 Skips the admin elevation prompt.  
