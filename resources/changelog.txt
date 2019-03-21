@@ -1,4 +1,8 @@
 = = = = = = = = = = = = =
+0.2.1 (21 March 2019)
+	Feature: Added /StartMinimized command-line parameter. Allows to start the tool minimized. Check the README for more informations.
+	Fix: The "Minimize tool instead of close" checkbox's check state wouldn't be set correctly on app load.
+	
 0.2 (20 March 2019)
 	Features:
 	- Added an option to start steam offline.

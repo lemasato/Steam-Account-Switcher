@@ -84,7 +84,7 @@ Start_Script() {
 
 	; Set global - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	PROGRAM.NAME					:= "Steam Account Switcher"
-	PROGRAM.VERSION 				:= "0.2"
+	PROGRAM.VERSION 				:= "0.2.1"
 	PROGRAM.IS_BETA					:= IsContaining(PROGRAM.VERSION, "beta")?"True":"False"
 
 	PROGRAM.GITHUB_USER 			:= "lemasato"
