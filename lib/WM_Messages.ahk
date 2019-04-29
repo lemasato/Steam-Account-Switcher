@@ -342,16 +342,19 @@ WM_MOUSEMOVE() {
 	_prevMouseX := _mouseX, _prevMouseY := _mouseY
 }
 
-AHK_NOTIFYICON(wParam, lParam) 
-{ 
-    if (lParam = 0x202) ; WM_LBUTTONUP
-    { 
-        SetTimer, AHK_NOTIFYICON_ShowTrayMenu, -1 
+AHK_NOTIFYICON(wParam, lParam) { 
+	global CANCEL_TRAY_MENU
+    if (lParam = 0x202) { ; WM_LBUTTONUP
+		doubleClickTime := DllCall("user32.dll\GetDoubleClickTime")?DllCall("user32.dll\GetDoubleClickTime"):500
+        SetTimer, AHK_NOTIFYICON_ShowTrayMenu,% "-" doubleClickTime+20
         return 0 
     }
 	return
 
 	AHK_NOTIFYICON_ShowTrayMenu:
-		Menu, Tray, Show
+		if (CANCEL_TRAY_MENU = True)
+			CANCEL_TRAY_MENU := False
+		else
+			Menu, Tray, Show
 	return
 } 

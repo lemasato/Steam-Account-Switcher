@@ -15,6 +15,7 @@
 	Menu,Tray,Add,Reload, Tray_Reload
 	Menu,Tray,Add,Close, Tray_Exit
 	Menu,Tray,Icon
+	Menu,Tray,Default,Open ; Double click
 
 	; Icons
 	Menu, Tray, Icon,Open,% PROGRAM.ICONS_FOLDER "\gear.ico"
@@ -22,7 +23,9 @@
 	Menu, Tray, Icon,Close,% PROGRAM.ICONS_FOLDER "\x.ico"
 }
 
-Tray_Open() {
+Tray_Open(params) {
+	global CANCEL_TRAY_MENU
+	CANCEL_TRAY_MENU := True
 	GUI_AccountSwitcher.Show()
 }
 Tray_OpenBetaTasks() {
