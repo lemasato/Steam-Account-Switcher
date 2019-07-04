@@ -412,7 +412,7 @@
             }
         }
 
-        Steam.Start()
+        ; Steam.Start()
         if (!RUNTIME_PARAMETERS.Account && PROGRAM.SETTINGS.SETTINGS_MAIN.MinimizeAfterLogin = "True")
             GUI_AccountSwitcher.Minimize()
         else
