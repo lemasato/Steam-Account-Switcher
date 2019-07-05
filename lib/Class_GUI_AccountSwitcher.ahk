@@ -414,7 +414,7 @@
 
         if (RUNTIME_PARAMETERS.Path) {
             command := RUNTIME_PARAMETERS.Path
-            RegExMatch(command, "i)[^""]*\\", workingDir)
+            RegExMatch(command, "i)[^""]*\\", workingDir) ; parse working dir and remove leading "
             Run, %command%, %workingDir%
         }
         else

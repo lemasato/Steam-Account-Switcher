@@ -61,9 +61,8 @@ The entire updating process is automated.
 
 - **/Path="executablePath parameters"**
     ⚠ Must be the last parameter ⚠
-    Lets you customize the command ran after the process is complete. Remember to use quotation marks if the strings contain spaces.
+    Lets you customize the command ran after the process is complete. Remember to use quotation marks if the path contains spaces.
 
     Examples:
-    - `/Path=this/string/has/no/spaces`
-    - `/Path="this/string/has -spaces"` or `/Path="this/path/has/spa ces"`
-    - `/Path=""this/path/has/spa ces" -this -string -has -spaces"`
+    - `/Path=this/path/has/no/spaces -parameter`
+    - `/Path="this/path/has/spa ces" -parameter`

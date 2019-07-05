@@ -18,7 +18,7 @@ Handle_CmdLineParameters() {
 	programName := PROGRAM.NAME
 	params := Get_CmdLineParameters()
 
-	if RegExMatch(params, "iO)/Account=([^\s]+)", found) {
+	if RegExMatch(params, "iO)/Account=""([^""\s]+)", found) {
 		RUNTIME_PARAMETERS["Account"] := found.1, found := ""
 	}
 	; added the "path" parameter it musts be the last parameter
