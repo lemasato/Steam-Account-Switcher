@@ -412,7 +412,13 @@
             }
         }
 
-        ; Steam.Start()
+        if (RUNTIME_PARAMETERS.Path) {
+            command := RUNTIME_PARAMETERS.Path
+            RegExMatch(command, "i)[^""]*\\", workingDir)
+            Run, %command%, %workingDir%
+        }
+        else
+            Steam.Start()
         if (!RUNTIME_PARAMETERS.Account && PROGRAM.SETTINGS.SETTINGS_MAIN.MinimizeAfterLogin = "True")
             GUI_AccountSwitcher.Minimize()
         else
