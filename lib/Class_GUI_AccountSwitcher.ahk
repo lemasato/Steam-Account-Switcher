@@ -415,7 +415,7 @@
         if (RUNTIME_PARAMETERS.Path) {
             command := RUNTIME_PARAMETERS.Path
             RegExMatch(command, "i)[^""]*\\", workingDir) ; parse working dir and remove leading "
-            Run, %command%, %workingDir%
+            Run, %command%, %workingDir%, UseErrorLevel
         }
         else
             Steam.Start()

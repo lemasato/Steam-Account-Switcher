@@ -1,9 +1,10 @@
-Get_CmdLineParameters() {
+﻿Get_CmdLineParameters() {
 	global 0
 	
 	Loop, %0% {
-		param := ""
-		param := RegExReplace(%A_Index%, "=([^""\s]+)", "=""$1""") ; Add quotes to single words parameters. Otherwise "" should be used
+		; param := ""
+		; param := RegExReplace(%A_Index%, "=([^""\s]+)", "=""$1""") ; not needed for Steam account names or paths without spaces
+		param := %A_Index%
 
 		if (param)
 			params .= A_Space . param
@@ -18,7 +19,7 @@ Handle_CmdLineParameters() {
 	programName := PROGRAM.NAME
 	params := Get_CmdLineParameters()
 
-	if RegExMatch(params, "iO)/Account=""([^""\s]+)", found) {
+	if RegExMatch(params, "iO)/Account=([^\s]+)", found) {
 		RUNTIME_PARAMETERS["Account"] := found.1, found := ""
 	}
 	; added the "path" parameter it musts be the last parameter
