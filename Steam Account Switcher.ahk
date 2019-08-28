@@ -169,7 +169,7 @@ Start_Script() {
 	Declare_LocalSettings(localSettings)
 
 	; Update checking
-	if !(DEBUG.settings.skip_update_check) {
+	if (false) { ; !(DEBUG.settings.skip_update_check) {
 		periodicUpdChk := PROGRAM.SETTINGS.UPDATE.CheckForUpdatePeriodically
 		updChkTimer := (periodicUpdChk="OnStartOnly")?(0)
 			: (periodicUpdChk="OnStartAndEveryFiveHours")?(18000000)
