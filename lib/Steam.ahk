@@ -1,7 +1,15 @@
 ﻿Class Steam {
 
-    Start() {
-        folder := Steam.GetInstallationFolder()
+    Start(folder="") {
+        if (folder) && !FileExist(folder "/Steam.exe") {
+            userFolder := folder, folder := Steam.GetInstallationFolder()
+            MsgBox(4096, "", "Steam.exe does not exist in the specified folder!"
+            . "`n" """" userFolder """"
+            . "`n" "Detected installation folder will be used instead."
+            . "`n" """" folder """")
+        }
+        if !(folder)
+            folder := Steam.GetInstallationFolder()
         Run, %folder%/Steam.exe
     }
 

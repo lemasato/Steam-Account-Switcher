@@ -35,5 +35,8 @@ Handle_CmdLineParameters() {
 		else if (param="/StartMinimized") {
 			RUNTIME_PARAMETERS["StartMinimized"] := True
 		}
+		else if RegExMatch(param, "iO)/SteamFolder=(.*)", found) {
+			RUNTIME_PARAMETERS["SteamFolder"] := found.1, found := ""
+		}
 	}
 }
