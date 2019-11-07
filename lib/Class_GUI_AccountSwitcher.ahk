@@ -370,10 +370,28 @@
             return
 
         Gui, AccountSwitcher:Hide
+        split := SplitPath(RUNTIME_PARAMETERS.SteamPath)
+        steamExe := split.FileName ? split.FileName : "Steam.exe"
+        steamFolder := split.Folder ? split.Folder : ""
+        steamParams := split.FileParams ? split.FileParams : ""
 
-        Process, Exist, Steam.exe
-        if (ErrorLevel)
-            Steam.Exit()
+        if !(RUNTIME_PARAMETERS.NoSteamShutdown) {
+            Process, Exist, %steamExe%
+            if (ErrorLevel)
+                Steam.Exit(steamFolder, steamExe)
+
+            Process, WaitClose, %steamExe%, 5
+            Process, Exist, %steamExe%
+            if (ErrorLevel) {
+                Process, Close, %ErrorLevel%
+                Sleep 100
+                Process, WaitClose, %ErrorLevel%, 5
+                if (ErrorLevel) {
+                    MsgBox(4096, PROGRAM.NAME, "Failed to close " steamExe " process.`nPlease close it manually.")
+                    Process, WaitClose, %ErrorLevel%
+                }
+            }
+        }
 
         useOffline := RUNTIME_PARAMETERS.Account && RUNTIME_PARAMETERS.StartSteamOffline ? True
         : RUNTIME_PARAMETERS.Account && !RUNTIME_PARAMETERS.StartSteamOffline ? False
@@ -392,19 +410,7 @@
         else
             Steam.SetAccountSettings(account, {WantsOfflineMode:0,SkipOfflineModeWarning:0})
 
-        Process, WaitClose, Steam.exe, 5
-        Process, Exist, Steam.exe
-        if (ErrorLevel) {
-            Process, Close, %ErrorLevel%
-            Sleep 100
-            Process, WaitClose, %ErrorLevel%, 5
-            if (ErrorLevel) {
-                MsgBox(4096, PROGRAM.NAME, "Failed to close steam.exe process.`nPlease close Steam manually.")
-                Process, WaitClose, %ErrorLevel%
-            }
-        }
-
-        Steam.Start(RUNTIME_PARAMETERS.SteamFolder)
+        Steam.Start(steamFolder, steamExe, steamParams)
         if (!RUNTIME_PARAMETERS.Account && PROGRAM.SETTINGS.SETTINGS_MAIN.MinimizeAfterLogin = "True")
             GUI_AccountSwitcher.Minimize()
         else

@@ -3,7 +3,7 @@
 	
 	Loop, %0% {
 		param := ""
-		param := RegExReplace(%A_Index%, "(.*)=(.*)", "$1=""$2""") ; Add quotes to parameters. In case any contain a space
+		param := RegExReplace(%A_Index%, "(.*?)=(.*)", "$1=""$2""") ; Add quotes to parameters. In case any contain a space
 
 		if (param)
 			params .= A_Space . param
@@ -35,8 +35,14 @@ Handle_CmdLineParameters() {
 		else if (param="/StartMinimized") {
 			RUNTIME_PARAMETERS["StartMinimized"] := True
 		}
-		else if RegExMatch(param, "iO)/SteamFolder=(.*)", found) {
-			RUNTIME_PARAMETERS["SteamFolder"] := found.1, found := ""
+		else if RegExMatch(param, "iO)/SteamPath=(.*)", found) || RegExMatch(param, "iO)/SteamFolder=(.*)", found) {
+			steamPath := found.1
+			if ( SubStr(found.1, 0, 1) = """" ) 		; If it ends with \ (eg: /SteamPath="C:\Program Files (x86)\Steam\")
+				steamPath := StrTrimRight(steamPath, 1) ; Then AHK will consider the " as escaped and part of the string, we need to remove it
+			RUNTIME_PARAMETERS["SteamPath"] := steamPath, found := ""
+		}
+		else if (param="/NoSteamShutdown") {
+			RUNTIME_PARAMETERS["NoSteamShutdown"] := True
 		}
 	}
 }

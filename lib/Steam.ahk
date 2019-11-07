@@ -1,21 +1,52 @@
 ﻿Class Steam {
 
-    Start(folder="") {
-        if (folder) && !FileExist(folder "/Steam.exe") {
-            userFolder := folder, folder := Steam.GetInstallationFolder()
-            MsgBox(4096, "", "Steam.exe does not exist in the specified folder!"
+    Start(folder="", exe="", params="") {
+        defaultExe := "Steam.exe"
+        defaultFolder := Steam.GetInstallationFolder()
+        exe := exe ? exe : defaultExe
+        folder := folder ? folder : defaultFolder
+        params := params ? params : ""
+
+        if (folder != defaultFolder) && !FileExist(folder "/" exe) {
+            userFolder := folder, folder := defaultFolder, exe := defaultExe
+            MsgBox(4096, "", exe " does not exist in the specified folder!"
             . "`n" """" userFolder """"
             . "`n" "Detected installation folder will be used instead."
-            . "`n" """" folder """")
+            . "`n" """" defaultFolder "/" defaultExe """")
         }
-        if !(folder)
-            folder := Steam.GetInstallationFolder()
-        Run, %folder%/Steam.exe
+
+        runCmd := params ? folder "/" exe " " params : folder "/" exe, runDir := folder
+        try
+            Run,% runCmd,% runDir
+        catch e
+            MsgBox(4096, "", "Failed to run """ folder "/" exe """"
+            . "`n`nExtra debug infos:"
+            . "`nwhat: " e.what "`nfile: " e.file "`nline: " e.line
+            . "`nmessage: " e.message "`nextra: " e.extra)
     }
 
-    Exit() {
-        folder := Steam.GetInstallationFolder()
-        Run, %folder%/Steam.exe -shutdown
+    Exit(folder="", exe="") {
+        defaultExe := "Steam.exe"
+        defaultFolder := Steam.GetInstallationFolder()
+        exe := exe ? exe : defaultExe
+        folder := folder ? folder : defaultFolder
+
+        if (folder != defaultFolder) && !FileExist(folder "/" exe) {
+            userFolder := folder, folder := defaultFolder, exe := defaultExe
+            MsgBox(4096, "", exe " does not exist in the specified folder!"
+            . "`n" """" userFolder """"
+            . "`n" "Detected installation folder will be used instead."
+            . "`n" """" defaultFolder "/" defaultExe """")
+        }
+
+        runCmd := folder "/" exe " -shutdown", runDir := folder
+        try
+            Run,% runCmd,% runDir
+        catch e
+            MsgBox(4096, "", "Failed to run """ folder "/" exe """"
+            . "`n`nExtra debug infos:"
+            . "`nwhat: " e.what "`nfile: " e.file "`nline: " e.line
+            . "`nmessage: " e.message "`nextra: " e.extra)
     }
 
     SetAutoLoginUser(userName) {

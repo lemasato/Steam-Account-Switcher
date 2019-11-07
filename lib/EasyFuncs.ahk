@@ -1,4 +1,23 @@
-﻿GetKeyStateFunc(which) {
+﻿StrTrimRight(var, trimCount) {
+	StringTrimRight, var, var, %trimCount%
+	return var
+}
+
+SplitPath(fileOrPath) {
+	SplitPath, fileOrPath, fileName, fileDir, fileExt, fileNameNoExt, fileDrive
+	
+    returnObj := {}
+	if RegExMatch(fileName, "iO)(.*)\.(.*) (.*)|(.*)\.(.*)", match)
+        fileName := match.1 "." match.2, fileNameNoExt := match.1, fileExt := match.2, fileParams := match.3
+	else if (!fileExt)
+		fileDir := fileDir "\" fileName, fileName := ""
+
+    returnObj := {FileName: fileName, FileExt: fileExt, FileParams: fileParams, FileNameNoExt: fileNameNoExt
+    ,Folder: fileDir, Drive: fileDrive}
+	return returnObj
+}
+
+GetKeyStateFunc(which) {
 
 	if (which = "All") {
 		shiftState := (GetKeyState("Shift"))?("Down"):("Up")
