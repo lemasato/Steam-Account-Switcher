@@ -22,38 +22,30 @@
 		upMost := borderSize, downMost := guiHeight-borderSize
 
         Style_SystemButton := [ [0, "0xdddfdd", , "Black"] ; normal
-			,  [0, "0x8fddfa"] ; hover
-			,  [0, "0x44c6f6"] ] ; press
+			, [0, "0x8fddfa"] ; hover
+			, [0, "0x44c6f6"] ] ; press
 
 	    Style_WhiteButton := [ [0, "White", , "Black"] ; normal
-			,  [0, "0xdddfdd"] ; hover
-			,  [0, "0x8fddfa"] ; press
-			,  [0, "0x8fddfa", , "White"] ] ; default
+			, [0, "0xdddfdd"] ; hover
+			, [0, "0x8fddfa"] ; press
+			, [0, "0x8fddfa", , "White"] ] ; default
 
-        Style_LoginButton := [ [0, "0x132f44", , "0x6ab5f6"] ; normal
-			,  [0, "0x163750", , "0x6ab5f6"] ; hover
-			,  [3, "0x163750", "0x102638", "0x0f8fff", 0] ] ; press
+        Style_Button := [ [0, "0x132f44", "", "0x6ab5f6"] ; normal
+			,  [0, "0x163850", "", "0x6ab5f6"] ; hover
+			,  [0, "0x102638", "", "0x0f8fff"] ] ; press
 
-        Style_Tab := [ [0, "0x1c4563", "0x878787", "0x80c4ff", 0, , ""] ; normal
-			,  [0, "0x132f44", "", "0x80c4ff", 0] ; hover
-			,  [3, "0x132f44", "0x0f2434", "0x0f8fff", 0]  ; press
-			,  [3, "0x132f44", "0x0f2434", "0x0f8fff", 0 ] ] ; default
-  
-        Style_Tab := [ [0, "0x132f44", "", "0x80c4ff", 0, , ""] ; normal
-			,  [0, "0x163850", "", "0x80c4ff", 0] ; hover
-			,  [3, "0x102638", "0x102638", "0x0f8fff", 0]  ; press
-			,  [0, "0x1c4563", "", "0x80c4ff", 0 ] ] ; default
+        Style_Tab := [ [0, "0x132f44", "", "0x0f8fff"] ; normal
+			,  [0, "0x163850", "", "0x80c4ff"] ; hover
+			,  [0, "0x163850", "", "0x80c4ff"]  ; press
+			,  [0, "0x1c4563", "", "0x80c4ff"] ] ; default
 
+        Style_CloseBtn := [ [0, "0xe01f1f", "", "White"] ; normal
+			, [0, "0xb00c0c"] ; hover
+			, [0, "0x8a0a0a"] ] ; press
 
-        Style_RedBtn := [ [0, "0xe01f1f", "", "White", 0, , ""] ; normal
-			, [0, "0xa20b0b", "", "White", 0] ; hover
-			, [3, "0xa20b0b", "0x7c0909", "Black", 0]  ; press
-			, [3, "0xff5c5c", "0xe60000", "White", 0 ] ] ; default
-
-        Style_MinimizeBtn := [ [0, "0x0fa1d7", "", "White", 0, , ""] ; normal
-                    , [0, "0x0b7aa2", "", "White", 0] ; hover
-                    , [3, "0x0b7aa2", "0x096a7b", "Black", 0]  ; press
-                    , [3, "0x5cb3ff", "0x00bbe6", "White", 0 ] ] ; default
+        Style_MinimizeBtn := [ [0, "0x0fa1d7", "", "White"] ; normal
+			, [0, "0x0b7aa2"] ; hover
+			, [0, "0x096181"] ]  ; press
 
         Header_X := leftMost, Header_Y := upMost, Header_W := guiWidth-(borderSize*2)-60, Header_H := 18 ; 30=closebtn
         CloseBtn_X := Header_X+Header_W+30, CloseBtn_Y := Header_Y, CloseBtn_W := 30, CloseBtn_H := Header_H
@@ -89,7 +81,7 @@
 		Gui.Add("AccountSwitcher", "Text", "x" Header_X " y" Header_Y " w" Header_W " h" Header_H " hwndhTEXT_HeaderGhost BackgroundTrans ", "") ; Title bar, allow moving
 		Gui.Add("AccountSwitcher", "Progress", "xp yp wp hp Background1B1E28") ; Title bar background
 		Gui.Add("AccountSwitcher", "Text", "xp yp wp hp Center 0x200 cbdbdbd BackgroundTrans ", "Steam Account Switcher v" PROGRAM.VERSION) ; Title bar text
-		imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" CloseBtn_X " y" CloseBtn_Y " w" CloseBtn_W " h" CloseBtn_H " 0x200 Center hwndhBTN_CloseGUI", "X", Style_RedBtn, PROGRAM.FONTS["Segoe UI"], 10)
+		imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" CloseBtn_X " y" CloseBtn_Y " w" CloseBtn_W " h" CloseBtn_H " 0x200 Center hwndhBTN_CloseGUI", "X", Style_CloseBtn, PROGRAM.FONTS["Segoe UI"], 10)
         imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" MinimizeBtn_X " y" MinimizeBtn_Y " w" MinimizeBtn_W " h" MinimizeBtn_H " 0x200 Center hwndhBTN_MinimizeGUI", "-", Style_MinimizeBtn, PROGRAM.FONTS["Segoe UI"], 10)
 
 		__f := GUI_AccountSwitcher.DragGui.bind(GUI_AccountSwitcher, GuiHwnd:=GuiAccountSwitcher.Handle)
@@ -131,7 +123,7 @@
         GUI_AccountSwitcher.LVAccounts_SetColumnWidth()
         
 
-        imgBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" LoginBtn_X " y" LoginBtn_Y " w" LoginBtn_W " h" LoginBtn_H " hwndhBTN_Login", "Login", Style_LoginButton, PROGRAM.FONTS["Segoe UI"], 10)
+        imgBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" LoginBtn_X " y" LoginBtn_Y " w" LoginBtn_W " h" LoginBtn_H " hwndhBTN_Login", "Login", Style_Button, PROGRAM.FONTS["Segoe UI"], 10)
         __f := GUI_AccountSwitcher.Login.bind(GUI_AccountSwitcher, accName:="")
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hBTN_Login"],% __f
 
