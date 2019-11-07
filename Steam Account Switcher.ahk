@@ -122,9 +122,13 @@ Start_Script() {
 
 	SetWorkingDir,% PROGRAM.MAIN_FOLDER
 
+	/* Don't force as admin on startup.
+	Also since the Steam.exe -shutdown param doesn't require admin at all, even if current instance is admin, this allow the user to decide what they want
+
 	if (!A_IsAdmin && !RUNTIME_PARAMETERS.SkipAdmin) {
 		ReloadWithParams(" /MyDocuments=""" MyDocuments """", getCurrentParams:=True, asAdmin:=True)
 	}
+	*/
 
 	; Create local directories - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 	directories := PROGRAM.MAIN_FOLDER "`n" PROGRAM.LOGS_FOLDER "`n"
