@@ -10,6 +10,17 @@
 			Menu,Tray,Add,Recreate Settings GUI, Tray_CreateSettings
 	}
 	; Menu,Tray,Add,Settings, Tray_OpenSettings
+
+	; Display steam accounts
+	accounts := GUI_AccountSwitcher.GetAccountsList()
+	if IsObject(accounts)
+		for accName, nothing in accounts
+			AddAccountItem(accName)
+	else
+		Loop, Parse, accounts,% ","
+			AddAccountItem(A_LoopField)
+
+	Menu,Tray,Add
 	Menu,Tray,Add,Open,Tray_Open
 	Menu,Tray,Add
 	Menu,Tray,Add,Reload, Tray_Reload
@@ -23,10 +34,17 @@
 	Menu, Tray, Icon,Close,% PROGRAM.ICONS_FOLDER "\x.ico"
 }
 
+AddAccountItem(account) {
+	handler := Func("Tray_SwitchAccount").Bind(account)
+	Menu,Tray,Add,% account,% handler
+}
 Tray_Open(params) {
 	global CANCEL_TRAY_MENU
 	CANCEL_TRAY_MENU := True
 	GUI_AccountSwitcher.Show()
+}
+Tray_SwitchAccount(account) {
+	GUI_AccountSwitcher.Login(account:=account)
 }
 Tray_OpenBetaTasks() {
 	GUI_BetaTasks.Show()
