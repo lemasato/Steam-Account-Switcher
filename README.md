@@ -56,5 +56,10 @@ When omitted, forces Steam to start in Online mode.
 ⚠ Does not work with `/Account=` or `/Offline` as they bypass the interface ⚠
 Starts the tool minimized in the tray. Useful if you want to add a shortcut to run on startup.|
 
-- **/SkipAdmin**  
-Skips the admin elevation prompt.  
+- **/SteamPath="C:\Program Files (x86)\Steam\"**
+Forces to use the specified Steam folder instead of the default installation.
+Note that this is really only required if you have multiple Steam installation and want to run the application on a specific one.
+
+- **/NoSteamShutdown**
+Normally we close the currently running any Steam instance running from the same folder we are trying to start it from.
+This parameter prevent this behaviour from occuring. I'm not quite sure how could this be used and why, but it exists.
