@@ -154,6 +154,31 @@ if !InStr(FileExist(PROGRAM.ICONS_FOLDER ""), "D")
 	FileCreateDir,% PROGRAM.ICONS_FOLDER ""
 
 if (A_IsCompiled) {
+	sourceFileSize := Get_ResourceSize("resources\icons\account.ico")
+	FileGetSize, destFileSize, % PROGRAM.ICONS_FOLDER "\account.ico"
+}
+else {
+	FileGetSize, sourceFileSize, resources\icons\account.ico
+	FileGetSize, destFileSize, % PROGRAM.ICONS_FOLDER "\account.ico"
+}
+if (sourceFileSize != destFileSize)
+	FileInstall, resources\icons\account.ico, % PROGRAM.ICONS_FOLDER "\account.ico", 1
+if (ErrorLevel) {
+	AppendToLogs("Failed to extract file!"
+	.	"`nSource: resources\icons\account.ico"
+	.	"`nDest: " PROGRAM.ICONS_FOLDER "\account.ico"
+	.	"`nFlag: " 2)
+	errorLog .= "`n`n""Failed to extract file!"
+	.	"`nSource: resources\icons\account.ico"
+	.	"`nDest: " PROGRAM.ICONS_FOLDER "\account.ico"
+	.	"`nFlag: " 2
+}
+
+; ----------------------------
+if !InStr(FileExist(PROGRAM.ICONS_FOLDER ""), "D")
+	FileCreateDir,% PROGRAM.ICONS_FOLDER ""
+
+if (A_IsCompiled) {
 	sourceFileSize := Get_ResourceSize("resources\icons\gear.ico")
 	FileGetSize, destFileSize, % PROGRAM.ICONS_FOLDER "\gear.ico"
 }

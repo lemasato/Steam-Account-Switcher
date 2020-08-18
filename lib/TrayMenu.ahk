@@ -20,8 +20,8 @@
 		Loop, Parse, accounts,% ","
 			AddAccountItem(A_LoopField)
 
-	Menu,Tray,Add
 	Menu,Tray,Add,Open,Tray_Open
+	Menu,Tray,Add,Accounts, :TrayAccounts
 	Menu,Tray,Add
 	Menu,Tray,Add,Reload, Tray_Reload
 	Menu,Tray,Add,Close, Tray_Exit
@@ -30,13 +30,14 @@
 
 	; Icons
 	Menu, Tray, Icon,Open,% PROGRAM.ICONS_FOLDER "\gear.ico"
+	Menu, Tray, Icon,Accounts,% PROGRAM.ICONS_FOLDER "\account.ico"
 	Menu, Tray, Icon,Reload,% PROGRAM.ICONS_FOLDER "\refresh.ico"
 	Menu, Tray, Icon,Close,% PROGRAM.ICONS_FOLDER "\x.ico"
 }
 
 AddAccountItem(account) {
 	handler := Func("Tray_SwitchAccount").Bind(account)
-	Menu,Tray,Add,% account,% handler
+	Menu,TrayAccounts,Add,% account,% handler
 }
 Tray_Open(params) {
 	global CANCEL_TRAY_MENU
