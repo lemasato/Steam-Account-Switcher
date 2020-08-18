@@ -156,7 +156,7 @@ Set_LocalSettings() {
 			isValueValid := LocalSettings_IsValueValid(iniSect, iniKey, iniValue)
 
 			if (!isValueValid) {
-				if (IsFirstTimeRunning != "True" && !IsIn(iniKey, "IsFirstTimeRunning,AddShowGridActionToInviteButtons,RemoveCopyItemInfosIfGridActionExists"))
+				if (IsFirstTimeRunning != "True" && !IsIn(iniKey, "IsFirstTimeRunning,LastUpdateCheck"))
 					warnMsg .= "Section: " iniSect "`nKey: " iniKey "`nValue: " iniValue "`nDefault value: " defValue "`n`n"
 				Restore_LocalSettings(iniSect, iniKey)
 			}
