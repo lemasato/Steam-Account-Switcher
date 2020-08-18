@@ -1,4 +1,18 @@
 = = = = = = = = = = = = =
+0.2.2 (18 Aug 2020)
+	Those are mostly changes that were already pushed on the branch a long time ago but not publicly made available as an update.
+	
+	Features:
+	- Added /SteamPath parameter. Use this if you want this application to use a specific steam folder if you have multiple copies of Steam. Refer to the README.MD on GitHub for usage examples.
+	- Added /NoSteamShutdown parameter. This prevent the application from closing the previous Steam instance. Refer to the README.MD on GitHub for usage examples.
+	- Can now quickly switch accounts directly from the tray menu.
+	
+	Changes:
+	- Disabled forcing application start as admin.
+	- Only close the currently running Steam process if it matches the same path as the one we are trying to run.
+	- Do not show any warning about the "LastUpdateCheck" ini value being invalid.
+
+= = = = = = = = = = = = =
 0.2.1 (21 March 2019)
 	Feature: Added /StartMinimized command-line parameter. Allows to start the tool minimized. Check the README for more informations.
 	Fix: The "Minimize tool instead of close" checkbox's check state wouldn't be set correctly on app load.
