@@ -26,9 +26,9 @@ You can add or remove accounts from the list by using right click.
 
 ***
 
-|||
-|---|---|
-|<img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface.png>|<img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface-2.png>|
+||||
+|---|---|---|
+|<img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface.png>|<img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface-3.png>|<img src=https://raw.githubusercontent.com/lemasato/Steam-Account-Switcher/master/screenshots/interface-2.png>|
 
 ## Key Features  
 - **Easily log into your Steam accounts, without having to type your password.**  
