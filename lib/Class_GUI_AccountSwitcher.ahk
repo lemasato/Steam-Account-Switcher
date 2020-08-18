@@ -372,23 +372,33 @@
         Gui, AccountSwitcher:Hide
         split := SplitPath(RUNTIME_PARAMETERS.SteamPath)
         steamExe := split.FileName ? split.FileName : "Steam.exe"
-        steamFolder := split.Folder ? split.Folder : ""
+        steamFolder := split.Folder ? split.Folder : Steam.GetInstallationFolder()
+        steamFolder := StrReplace(steamFolder, "/", "\")
         steamParams := split.FileParams ? split.FileParams : ""
 
         if !(RUNTIME_PARAMETERS.NoSteamShutdown) {
-            Process, Exist, %steamExe%
-            if (ErrorLevel)
-                Steam.Exit(steamFolder, steamExe)
+            dettect_hw := A_DetectHiddenWindows
+            DetectHiddenWindows, On
+            matchingPIDsList := Get_Windows_PID(steamExe, "ahk_exe")
+            Loop, Parse, matchingPIDsList,% ","
+            {
+                thisPID := A_LoopField
+                WinGet, pPath, ProcessPath, ahk_pid %thisPID%
+                if (pPath = steamFolder "\" steamExe) {
+                    Steam.Exit(steamFolder, steamExe)
+                    Loop 2 {
+                        if (A_Index = 2) ; Force closing process on 2nd loop
+                            Process, Close, %thisPID%
+                        Process, WaitClose, %thisPID%, 5
+                        Process, Exist, %thisPID%
 
-            Process, WaitClose, %steamExe%, 5
-            Process, Exist, %steamExe%
-            if (ErrorLevel) {
-                Process, Close, %ErrorLevel%
-                Sleep 100
-                Process, WaitClose, %ErrorLevel%, 5
-                if (ErrorLevel) {
-                    MsgBox(4096, PROGRAM.NAME, "Failed to close " steamExe " process.`nPlease close it manually.")
-                    Process, WaitClose, %ErrorLevel%
+                        if (ErrorLevel && A_Index = 2) {
+                            MsgBox(4096, PROGRAM.NAME, "Failed to close """ steamFolder "\" steamExe """ process.`nPlease close it manually.")
+                            Process, WaitClose, %thisPID%
+                        }
+                        else
+                            Break
+                    }
                 }
             }
         }
