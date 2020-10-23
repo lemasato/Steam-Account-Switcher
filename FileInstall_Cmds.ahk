@@ -328,7 +328,7 @@ if (ErrorLevel) {
 
 
 if (errorLog)
-	MsgBox, 4096, POE Trades Companion,% "One or multiple files failed to be extracted. Please check the logs file for details."
+	MsgBox, 4096, Steam Account Switcher,% "One or multiple files failed to be extracted. Please check the logs file for details."
 	.	PROGRAM.LOGS_FILE 
 
 }

@@ -4,7 +4,7 @@
 ; Basic tray menu
 if ( !A_IsCompiled && FileExist(A_ScriptDir "\resources\icon.ico") )
 	Menu, Tray, Icon, %A_ScriptDir%\resources\icon.ico
-Menu,Tray,Tip,POE Trades Companion - Converting release
+Menu,Tray,Tip,Steam Account Switcher - Converting release
 Menu,Tray,NoStandard
 Menu,Tray,Add,Close,Tray_Close
 Menu,Tray,Icon
