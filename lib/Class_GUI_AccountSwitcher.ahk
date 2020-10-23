@@ -14,6 +14,7 @@
 		Gui.New("AccountSwitcher", "-Caption -Border +LabelGUI_AccountSwitcher_ +HwndhGuiAccountSwitcher", "Steam Account Switcher")
 		; Gui.New("AccountSwitcher", "+AlwaysOnTop +ToolWindow +LabelGUI_AccountSwitcher_ +HwndhGuiAccountSwitcher", "AccountSwitcher")
 		GuiAccountSwitcher.Is_Created := False
+        windowsDPI := Get_DpiFactor()
 
 		guiCreated := False
 		guiFullHeight := 230, guiFullWidth := 400, borderSize := 1, borderColor := "Black"
@@ -81,8 +82,8 @@
 		Gui.Add("AccountSwitcher", "Text", "x" Header_X " y" Header_Y " w" Header_W " h" Header_H " hwndhTEXT_HeaderGhost BackgroundTrans ", "") ; Title bar, allow moving
 		Gui.Add("AccountSwitcher", "Progress", "xp yp wp hp Background1B1E28") ; Title bar background
 		Gui.Add("AccountSwitcher", "Text", "xp yp wp hp Center 0x200 cbdbdbd BackgroundTrans ", "Steam Account Switcher v" PROGRAM.VERSION) ; Title bar text
-		imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" CloseBtn_X " y" CloseBtn_Y " w" CloseBtn_W " h" CloseBtn_H " 0x200 Center hwndhBTN_CloseGUI", "X", Style_CloseBtn, PROGRAM.FONTS["Segoe UI"], 10)
-        imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" MinimizeBtn_X " y" MinimizeBtn_Y " w" MinimizeBtn_W " h" MinimizeBtn_H " 0x200 Center hwndhBTN_MinimizeGUI", "-", Style_MinimizeBtn, PROGRAM.FONTS["Segoe UI"], 10)
+		imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" CloseBtn_X " y" CloseBtn_Y " w" CloseBtn_W " h" CloseBtn_H " 0x200 Center hwndhBTN_CloseGUI", "X", Style_CloseBtn, PROGRAM.FONTS["Segoe UI"], 10*windowsDPI)
+        imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" MinimizeBtn_X " y" MinimizeBtn_Y " w" MinimizeBtn_W " h" MinimizeBtn_H " 0x200 Center hwndhBTN_MinimizeGUI", "-", Style_MinimizeBtn, PROGRAM.FONTS["Segoe UI"], 10*windowsDPI)
 
 		__f := GUI_AccountSwitcher.DragGui.bind(GUI_AccountSwitcher, GuiHwnd:=GuiAccountSwitcher.Handle)
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls.hTEXT_HeaderGhost,% __f
@@ -97,12 +98,12 @@
         Gui, AccountSwitcher:Tab
         GuiAccountSwitcher.Tabs_Controls := {}
 
-        imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" Tab_X " y" Tab_Y " w" Tab_W " h" Tab_H " hwndhBTN_TabAccounts", "Accounts", Style_Tab, PROGRAM.FONTS["Segoe UI"], 10)
+        imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" Tab_X " y" Tab_Y " w" Tab_W " h" Tab_H " hwndhBTN_TabAccounts", "Accounts", Style_Tab, PROGRAM.FONTS["Segoe UI"], 10*windowsDPI)
         __f := GUI_AccountSwitcher.SelectTab.bind(GUI_AccountSwitcher, "Accounts")
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hBTN_TabAccounts"],% __f
         GuiAccountSwitcher.Tabs_Controls["Accounts"] := GuiAccountSwitcher_Controls.hBTN_TabAccounts
 
-        imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" Tab2_X " y" Tab2_Y " w" Tab2_W " h" Tab2_H " hwndhBTN_TabOptions", "Options", Style_Tab, PROGRAM.FONTS["Segoe UI"], 10)
+        imageBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" Tab2_X " y" Tab2_Y " w" Tab2_W " h" Tab2_H " hwndhBTN_TabOptions", "Options", Style_Tab, PROGRAM.FONTS["Segoe UI"], 10*windowsDPI)
         __f := GUI_AccountSwitcher.SelectTab.bind(GUI_AccountSwitcher, "Options")
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hBTN_TabOptions"],% __f
         GuiAccountSwitcher.Tabs_Controls["Options"] := GuiAccountSwitcher_Controls.hBTN_TabOptions
@@ -123,7 +124,7 @@
         GUI_AccountSwitcher.LVAccounts_SetColumnWidth()
         
 
-        imgBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" LoginBtn_X " y" LoginBtn_Y " w" LoginBtn_W " h" LoginBtn_H " hwndhBTN_Login", "Login", Style_Button, PROGRAM.FONTS["Segoe UI"], 10)
+        imgBtnLog .= Gui.Add("AccountSwitcher", "ImageButton", "x" LoginBtn_X " y" LoginBtn_Y " w" LoginBtn_W " h" LoginBtn_H " hwndhBTN_Login", "Login", Style_Button, PROGRAM.FONTS["Segoe UI"], 10*windowsDPI)
         __f := GUI_AccountSwitcher.Login.bind(GUI_AccountSwitcher, accName:="")
 		GuiControl, AccountSwitcher:+g,% GuiAccountSwitcher_Controls["hBTN_Login"],% __f
 
