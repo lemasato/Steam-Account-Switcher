@@ -370,11 +370,12 @@
             return
 
         Gui, AccountSwitcher:Hide
+
         split := SplitPath(RUNTIME_PARAMETERS.SteamPath)
         steamExe := split.FileName ? split.FileName : "Steam.exe"
         steamFolder := split.Folder ? split.Folder : Steam.GetInstallationFolder()
         steamFolder := StrReplace(steamFolder, "/", "\")
-        steamParams := split.FileParams ? split.FileParams : ""
+        steamParams := RUNTIME_PARAMETERS.SteamParams ? RUNTIME_PARAMETERS.SteamParams : ""
 
         if !(RUNTIME_PARAMETERS.NoSteamShutdown) {
             dettect_hw := A_DetectHiddenWindows

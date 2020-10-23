@@ -41,6 +41,10 @@ Handle_CmdLineParameters() {
 				steamPath := StrTrimRight(steamPath, 1) ; Then AHK will consider the " as escaped and part of the string, we need to remove it
 			RUNTIME_PARAMETERS["SteamPath"] := steamPath, found := ""
 		}
+		else if RegExMatch(param, "iO)/SteamParams=(.*)", found) {
+			steamParams := found.1
+			RUNTIME_PARAMETERS["SteamParams"] := steamParams, found := ""
+		}
 		else if (param="/NoSteamShutdown") {
 			RUNTIME_PARAMETERS["NoSteamShutdown"] := True
 		}
