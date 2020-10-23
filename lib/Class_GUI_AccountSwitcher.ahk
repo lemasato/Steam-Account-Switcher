@@ -422,7 +422,13 @@
         else
             Steam.SetAccountSettings(account, {WantsOfflineMode:0,SkipOfflineModeWarning:0})
 
-        Steam.Start(steamFolder, steamExe, steamParams)
+        if (RUNTIME_PARAMETERS.LaunchCommand) {
+            launchCmdFolder := SplitPath(RUNTIME_PARAMETERS.LaunchCommand).Folder
+            Run,% RUNTIME_PARAMETERS.LaunchCommand,% launchCmdFolder
+        }
+        else {
+            Steam.Start(steamFolder, steamExe, steamParams)
+        }
         if (!RUNTIME_PARAMETERS.Account && PROGRAM.SETTINGS.SETTINGS_MAIN.MinimizeAfterLogin = "True")
             GUI_AccountSwitcher.Minimize()
         else

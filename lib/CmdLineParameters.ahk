@@ -45,6 +45,10 @@ Handle_CmdLineParameters() {
 			steamParams := found.1
 			RUNTIME_PARAMETERS["SteamParams"] := steamParams, found := ""
 		}
+		else if RegExMatch(param, "iO)/LaunchCommand=(.*)", found) {
+			launchCmd := found.1
+			RUNTIME_PARAMETERS["LaunchCommand"] := launchCmd, found := ""
+		}
 		else if (param="/NoSteamShutdown") {
 			RUNTIME_PARAMETERS["NoSteamShutdown"] := True
 		}
