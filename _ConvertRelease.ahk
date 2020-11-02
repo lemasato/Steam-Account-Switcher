@@ -34,7 +34,7 @@ CompileFile(A_ScriptDir "\" ahkFile, A_ScriptDir "\" exeFile, project, ver, "© 
 ; Updater file v2
 ; ToolTip, Updater_v2.exe
 ; CompileFile(A_ScriptDir "\Updater_v2.ahk", A_ScriptDir "\Updater_v2.exe")
-CompileFile(A_ScriptDir "\Updater_v2.ahk", A_ScriptDir "\Updater_v2.exe", project ": Updater", "2.1", "© lemasato.github.io " A_YYYY)
+; CompileFile(A_ScriptDir "\Updater_v2.ahk", A_ScriptDir "\Updater_v2.exe", project ": Updater", "2.1", "© lemasato.github.io " A_YYYY)
 
 ; End
 SoundPlay, *32

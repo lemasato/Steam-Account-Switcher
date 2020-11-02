@@ -1,4 +1,13 @@
 = = = = = = = = = = = = =
+0.2.3 (02 Oct 2020)
+	Features:
+	- Added the /LaunchCommand and /SteamParams parameter. Refer to README on the repo for usage instruction.
+	
+	Fixes:
+	- /SteamPath wouldn't work with custom executable files as it should.
+	- Buttons text would appear small on high resolution scaling.
+
+= = = = = = = = = = = = =
 0.2.2 (18 Aug 2020)
 	Those are mostly changes that were already pushed on the branch a long time ago but not publicly made available as an update.
 	
