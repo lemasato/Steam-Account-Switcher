@@ -1,4 +1,9 @@
 = = = = = = = = = = = = =
+0.2.4 (27 Jan 2021)
+	Fixes:
+	- An error message box could occur when checking for update even if nothing went wrong.
+
+= = = = = = = = = = = = =
 0.2.3 (02 Oct 2020)
 	Features:
 	- Added the /LaunchCommand and /SteamParams parameter. Refer to README on the repo for usage instruction.
