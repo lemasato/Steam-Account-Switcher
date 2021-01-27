@@ -34,7 +34,7 @@ GitHubAPI_GetReleases(user, repo, which="releases_only", latestOnly=False, pageI
 	reqHeaders		:= []
 	reqHeaders.Push("Content-Type: text/html; charset=UTF-8")
 	options			:= ""
-	html 			:= cURL_Download(url, ioData := postData, reqHeaders, options, true, false, false, errorMsg)
+	html 			:= cURL_Download(url, ioData := postData, reqHeaders, options, useFallback:=false, critical:=false, binaryDL:=false, errorMsg)
     ; FileRead, html,% A_ScriptDir "\releasejson.txt"
     
 	if GitHubAPI_IsRateLimitExceeded(html, reqHeaders)
